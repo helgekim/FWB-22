@@ -18,19 +18,22 @@ function Total(course) {
 function Content(course) {
   return(
     <div>
-    <p>
-      {course.part1} {course.exercises1}
-    </p>
-    <p>
-      {course.part2} {course.exercises2}
-    </p>
-    <p>
-      {course.part3} {course.exercises3}
-    </p>
+    <Part part={course.part1} exercises={course.exercises1}/>
+    <Part part={course.part2} exercises={course.exercises2}/>
+    <Part part={course.part3} exercises={course.exercises3}/>
     </div>
   )
 }
 
+function Part(course) {
+  return(
+    <div>
+    <p>
+      {course.part} {course.exercises}
+      </p>
+    </div>
+  )
+}
 
 function App() {
   const course = 'Half Stack application development'
