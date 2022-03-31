@@ -21,15 +21,31 @@ function Rate({setter, points}) {
 
 function ShowRates({points}) {
 
+  const all = points.good + points.neutral + points.bad;
+  const average = all / 3;
+  const positive = ((points.good + points.neutral) - points.bad) / (all / 100)
 
-  return (
+  if (all > 0)
+  {
+    return (
     <div>
       <h1>statistics</h1>
       <p> good: {points.good} </p>
       <p> neutral: {points.neutral} </p>
       <p> bad: {points.bad} </p>
+      <p> all: {all}</p>
+      <p> average: {average} </p>
+      <p> positive: {positive} %</p>
     </div>
   )
+}
+
+return(
+  <div>
+  <h1> statistics </h1>
+  <p> no feedback given </p>
+  </div>
+)
 }
 
 
