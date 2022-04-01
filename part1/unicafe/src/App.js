@@ -23,7 +23,7 @@ function ShowRates({points}) {
 
   const all = points.good + points.neutral + points.bad;
   const average = all / 3;
-  const positive = ((points.good + points.neutral) - points.bad) / (all / 100)
+  const positive = (((points.good + points.neutral) - points.bad)  / all) * 100;
 
   if (all > 0)
   {
