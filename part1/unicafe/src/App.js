@@ -11,15 +11,21 @@ function Rate({setter, points}) {
     <div>
       <h1> give feedback </h1>
       <div>
-        <button onClick={upGood}>good</button>
-        <button onClick={upNeutral}>neutral</button>
-        <button onClick={upBad}>bad</button>
+      <Button event={upGood} text="good"/>
+      <Button event={upNeutral} text="neutral"/>
+      <Button event={upBad} text="bad"/>
       </div>
     </div>
   )
 }
 
-function ShowRates({points}) {
+function Button(props) {
+  return(
+      <button onClick={props.event}>{props.text}</button>
+  )
+}
+
+function Statistics({points}) {
 
   const all = points.good + points.neutral + points.bad;
   const average = all / 3;
@@ -30,12 +36,17 @@ function ShowRates({points}) {
     return (
     <div>
       <h1>statistics</h1>
-      <p> good: {points.good} </p>
-      <p> neutral: {points.neutral} </p>
-      <p> bad: {points.bad} </p>
-      <p> all: {all}</p>
-      <p> average: {average} </p>
-      <p> positive: {positive} %</p>
+      <div>
+        <table>
+        <StatisticLine text="good" point={points.good}/>
+        <StatisticLine text="neutral" point={points.neutral}/>
+        <StatisticLine text="bad" point={points.bad}/>
+          <StatisticLine text="all" point={all}/>
+          <StatisticLine text="average" point={average}/>
+          <StatisticLine text="positive" point={positive}/>
+          </table>
+
+      </div>
     </div>
   )
 }
@@ -46,6 +57,16 @@ return(
   <p> no feedback given </p>
   </div>
 )
+}
+
+
+function StatisticLine(data) {
+  return(
+    <tr>
+      <td>{data.text} </td>
+      <td>{data.point}</td>
+    </tr>
+  )
 }
 
 
@@ -66,7 +87,7 @@ function App() {
     <div>
       <p> The application is in development </p>
       <Rate setter={setPoints} points={points}/>
-      <ShowRates points={points}/>
+      <Statistics points={points}/>
     </div>
   );
 }
