@@ -18,6 +18,10 @@ function App() {
 
   const [anecdote, setAnecdote] = useState(getRandomInt(anecdotes.length));
 
+  function change() {
+    return setAnecdote(getRandomInt(anecdotes.length));
+  }
+
 
   return (
     <div>
@@ -28,6 +32,7 @@ function App() {
     <main>
       <h2> Anecdote </h2>
       <p> {anecdotes[anecdote]} </p>
+      <button onClick={() => change()}>next anecdote</button>
     </main>
     </div>
   );
