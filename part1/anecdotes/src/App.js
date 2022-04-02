@@ -22,7 +22,16 @@ function App() {
     return setAnecdote(getRandomInt(anecdotes.length));
   }
 
+  const emptyVotesArray = Array(anecdotes.length).fill(0);
+  const [votes, setVote] = useState(emptyVotesArray);
 
+  function vote() {
+    const temporaryArray = [].concat(votes);
+    temporaryArray[anecdote] += 1;
+    return setVote(temporaryArray);
+  }
+
+  console.log(votes[anecdote])
   return (
     <div>
     <header>
@@ -32,8 +41,11 @@ function App() {
     <main>
       <h2> Anecdote </h2>
       <p> {anecdotes[anecdote]} </p>
+      <p> this anecdote has {votes[anecdote]} votes </p>
       <button onClick={() => change()}>next anecdote</button>
+      <button onClick={() => vote()}>vote</button>
     </main>
+
     </div>
   );
 }
