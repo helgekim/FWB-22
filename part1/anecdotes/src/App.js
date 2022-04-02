@@ -31,7 +31,11 @@ function App() {
     return setVote(temporaryArray);
   }
 
-  console.log(votes[anecdote])
+  const [bestAnecdote, setBestAnecdote] = useState(votes.findIndex(Math.max.apply(null, votes)));
+
+  function refreshbestAnecdote() {
+    return setBestAnecdote(votes.findIndex(Math.max.apply(null, votes)));
+  }
   return (
     <div>
     <header>
@@ -45,7 +49,12 @@ function App() {
       <button onClick={() => change()}>next anecdote</button>
       <button onClick={() => vote()}>vote</button>
     </main>
-
+    <div>
+    <h2> Anecdote with the most votes </h2>
+    <p> {anecdotes[bestAnecdote]} </p>
+    <p> this anecdote has {votes[bestAnecdote]} votes </p>
+    <button onClick={() => refreshbestAnecdote()}>Refresh</button>
+    </div>
     </div>
   );
 }
