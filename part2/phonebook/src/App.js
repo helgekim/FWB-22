@@ -2,12 +2,20 @@ import {useState} from 'react';
 
 
 function App() {
+
+
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',
-      number: '0'}
-  ]);
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+  ])
+
+  const [search, setSearch] = useState('');
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+
+  const showAll = search === "" ? persons : persons.filter(element => element.name.includes(search));
 
 
   function addContact(event) {
@@ -40,6 +48,7 @@ function App() {
     <div>
     <div>
       <h2>Phonebook</h2>
+      <p> filter shown with <input value={search} onChange={(event) => setSearch(event.target.value)}/></p>
       <form onSubmit={addContact}>
         <div>
           name: <input value={newName} onChange={(event) => setNewName(event.target.value)}/>
