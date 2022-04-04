@@ -9,10 +9,24 @@ function App() {
 
   function addContact(event) {
     event.preventDefault();
-    const object = {
+
+    if (persons.filter(contact => contact.name == newName)) {
+      return alert(`${newName} cannot be created for it's been already in the contactbook!`);
+    }
+
+
+    if (newName.length >= 3)
+
+    {
+      const object = {
       name: newName
     };
     return setPersons(persons.concat(object));
+  }
+  else {
+    return alert(`A contact named ${newName} cannot be created`);
+  }
+
   }
   return (
     <div>
@@ -31,7 +45,7 @@ function App() {
       <div>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(contact => <li>{contact.name}</li>)}
+        {persons.map(contact => <li key={contact.name}>{contact.name}</li>)}
       </ul>
       </div>
     </div>
