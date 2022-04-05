@@ -21,13 +21,10 @@ function App() {
   function addContact(event) {
     event.preventDefault();
 
-    /* doesnt work
-    if (persons.filter(contact =>
-      {      console.log(contact.name, newName)
-        return contact.name == newName})
-      ) {
+    const check = persons.filter(contact => contact.name == newName).length
+    if (check > 0) {
       return alert(`${newName} cannot be created for it's been already in the contactbook!`);
-    }*/
+    }
 
 
     if (newName.length >= 3)
