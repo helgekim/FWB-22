@@ -15,13 +15,14 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
 
-  const showAll = search === "" ? persons : persons.filter(element => element.name.includes(search));
+  const showAll = search === "" ? persons : persons.filter(element => element.name.match(search));
 
 
   function addContact(event) {
     event.preventDefault();
 
-    const check = persons.filter(contact => contact.name == newName).length
+    const check = persons.filter(contact => contact.name === newName).length;
+
     if (check > 0) {
       return alert(`${newName} cannot be created for it's been already in the contactbook!`);
     }
@@ -62,7 +63,7 @@ function App() {
       <div>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(contact => <li key={contact.name}>{contact.name}: {contact.number}</li>)}
+        {showAll.map(contact => <li key={contact.name}>{contact.name}: {contact.number}</li>)}
       </ul>
       </div>
     </div>
