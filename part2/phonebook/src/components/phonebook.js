@@ -1,34 +1,34 @@
 
-  function addContact(event) {
-      event.preventDefault();
-
-      const check = persons.filter(contact => contact.name === newName).length;
-
-      if (check > 0) {
-        return alert(`${newName} cannot be created for it's been already in the contactbook!`);
-      }
-
-
-      if (newName.length >= 3)
-
-      {
-        const object = {
-        name: newName,
-        number: newNumber
-      };
-      return setPersons(persons.concat(object));
-    }
-    else {
-      return alert(`A contact named ${newName} cannot be created`);
-  }
-  }
-
-
 
 function Book({persons, setPersons, search, setSearch, newName, newNumber, setNewName, setNewNumber}) {
 
 
   const showAll = search === "" ? persons : persons.filter(element => element.name.match(search));
+
+    function addContact(event) {
+        event.preventDefault();
+
+        const check = persons.filter(contact => contact.name === newName).length;
+
+        if (check > 0) {
+          return alert(`${newName} cannot be created for it's been already in the contactbook!`);
+        }
+
+
+        if (newName.length >= 3)
+
+        {
+          const object = {
+          name: newName,
+          number: newNumber
+        };
+        return setPersons(persons.concat(object));
+      }
+      else {
+        return alert(`A contact named ${newName} cannot be created`);
+    }
+    }
+
 
 
   return(
