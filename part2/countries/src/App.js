@@ -29,9 +29,9 @@ function App() {
     countries.filter(
       country => {
         if (search.length >= 2) {
-          return country.name.common.match(search) ;
+          return country.name.common.match(search);
         } else {
-          return country;
+          return [];
         }
       }
     )
