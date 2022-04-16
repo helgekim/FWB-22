@@ -1,4 +1,4 @@
-function Country(data) {
+function Country(data, setSearch) {
 
   const countries = data.data;
 
@@ -7,7 +7,7 @@ function Country(data) {
       <div>
       <h2> Countries starting with these letters </h2>
       <ul>
-        <CountryList countries={countries}/>
+        <CountryList countries={countries} setSearch={setSearch}/>
         </ul>
       </div>
     )
@@ -26,9 +26,10 @@ function Country(data) {
 
 
 
-function CountryList({countries}) {
-  console.log('countrylist', countries)
-  return countries.map(country => <li key={country.cc2}>{country.name.common}</li>)
+function CountryList({countries}, setSearch) {
+  console.log('countrylist', setSearch)
+  return countries.map(country => <li key={country.cc2}>{country.name.common}
+    <button onClick={event => setSearch(country.name.common)}>Show</button></li>)
 }
 
 
