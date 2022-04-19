@@ -44,7 +44,7 @@ function App() {
       <div>
       <h1> Find a country </h1>
       <Search value={search} typer={setSearch}/>
-      <Country data={showCountries}  setSearch={setSearch}/>
+      <Country data={showCountries} search={setSearch}/>
       </div>
     </div>
   )

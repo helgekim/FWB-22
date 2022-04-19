@@ -1,23 +1,24 @@
-function Country(data, setSearch) {
+import Weather from './Weather';
 
-  const countries = data.data;
+function Country({data, search}) {
 
-  if (countries.length > 1 && countries.length < 11)  {
+  if (data.length > 1 && data.length < 11)  {
     return (
       <div>
       <h2> Countries starting with these letters </h2>
       <ul>
-        <CountryList countries={countries} setSearch={setSearch}/>
+        <CountryList countries={data} search={search}/>
         </ul>
       </div>
     )
   }
 
-  else if (countries.length == 1) {
+  else if (data.length == 1) {
     return (
       <div>
         <h2> Country </h2>
-        <CountryFile countries = {countries} />
+        <CountryFile countries = {data} />
+        <Weather countries = {data}/>
       </div>
     )
   }
@@ -26,10 +27,13 @@ function Country(data, setSearch) {
 
 
 
-function CountryList({countries}, setSearch) {
-  console.log('countrylist', setSearch)
+function CountryList({countries, search}) {
+  console.log(search)
+  const find = (name) => {
+    return search(name);
+  }
   return countries.map(country => <li key={country.cc2}>{country.name.common}
-    <button onClick={event => setSearch(country.name.common)}>Show</button></li>)
+    <button onClick={event => find(country.name.common)}>Show</button></li>)
 }
 
 
