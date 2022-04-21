@@ -5,7 +5,7 @@ function Weather({city, weather}) {
 if (city.length > 0)  {
     console.log(weather);
 
-    const temperature = (weather.data.main.temp - 32) / 1.8;
+    const temperature = weather.data.main.temp;
     const windspeed = weather.data.wind.speed
     return(
     <div>
