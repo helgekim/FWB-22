@@ -1,6 +1,6 @@
 import Weather from './Weather';
 
-function Country({data, search}) {
+function Country({data, search, citySetter}) {
 
   if (data.length > 1 && data.length < 11)  {
     return (
@@ -17,8 +17,7 @@ function Country({data, search}) {
     return (
       <div>
         <h2> Country </h2>
-        <CountryFile countries = {data} />
-        <Weather countries = {data}/>
+        <CountryFile countries = {data} citySetter={citySetter} />
       </div>
     )
   }
@@ -37,8 +36,12 @@ function CountryList({countries, search}) {
 }
 
 
-function CountryFile({countries}) {
-  const country = countries[0]
+function CountryFile({countries, citySetter}) {
+
+  const country = countries[0];
+
+  citySetter(country.capital[0]);
+
   return (
     <div>
       <h3> {country.name.common} ({country.name.official}) </h3>

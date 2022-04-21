@@ -1,15 +1,29 @@
 import axios from 'axios';
 
-function Weather({countries}) {
+function Weather({city, weather}) {
 
-  const country = countries[0]
-  const capital = country.capital.toString(" ,");
-  return(
+if (city.length > 0)  {
+    console.log(weather);
+
+    const temperature = (weather.data.main.temp - 32) / 1.8;
+    const windspeed = weather.data.wind.speed
+    return(
     <div>
-      <h2> Weather in <i>{capital}</i> </h2>
-      <p></p>
+      <h2> Weather in <i>{city}</i> </h2>
+      <p>
+      Temperature: {temperature}C
+      </p>
+      <p>
+      Wind speed: {windspeed} m/s
+      </p>
     </div>
   )
+}
+
+return (
+  <div>
+  </div>
+);
 }
 
 
