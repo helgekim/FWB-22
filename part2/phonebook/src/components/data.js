@@ -16,7 +16,17 @@ function create(object) {
               )
 }
 
+function getDeleted(id) {
+  return axios.delete(`${baseURL}/${id}`)
+}
+
+function update(id, object) {
+  return axios.put(`${baseURL}/${id}`, object)
+              .then(response => response.data)
+}
+
 export default {
   getall,
-  create
+  create,
+  update
 }

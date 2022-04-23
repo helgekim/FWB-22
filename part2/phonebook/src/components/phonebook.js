@@ -9,9 +9,31 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
         event.preventDefault();
 
         const check = persons.filter(contact => contact.name === newName).length;
+        const element = persons.filter(contact => contact.name === newName)[0]
 
         if (check > 0) {
-          return alert(`${newName} cannot be created for it's been already in the contactbook!`);
+
+          const object = {
+            name: newName,
+            number: newNumber
+          }
+
+          if (element.name == newName) {
+            const consent = window.confirm("Wanna replace the contact")
+            if (consent) {
+              return Data.update(element.id, object)
+
+            }
+          } else if (element.number === object.number) {
+            const consent = window.confirm("Wanna replace the contact?")
+            if (consent) {
+              return Data.update(element.id, object)
+            }
+          }
+          
+            return alert("This contact already exists!")
+
+
         }
 
 
