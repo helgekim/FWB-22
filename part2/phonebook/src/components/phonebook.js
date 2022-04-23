@@ -1,4 +1,4 @@
-
+import Data from './data';
 
 function Book({persons, setPersons, search, setSearch, newName, newNumber, setNewName, setNewNumber}) {
 
@@ -22,7 +22,14 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
           name: newName,
           number: newNumber
         };
-        return setPersons(persons.concat(object));
+
+        return Data.create(
+          object
+        ).then(
+          data => setPersons(persons.concat(
+            object
+          ))
+        )
       }
       else {
         return alert(`A contact named ${newName} cannot be created`);

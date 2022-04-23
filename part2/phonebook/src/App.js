@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import Book from './components/phonebook'
+import Data from './components/data'
 
 function App() {
 
@@ -9,10 +10,8 @@ function App() {
 
   useEffect(
     () => {
-      axios.get("http://localhost:3001/persons")
-           .then(
-             response => setPersons(response.data)
-           );
+      Data.getall()
+          .then(data => setPersons(data));
     }, []
   )
 
@@ -23,7 +22,7 @@ function App() {
 
   return (
     <div>
-      <Book persons={persons} setPersons={setPersons} search={search} setSearch={setSearch} newName={name}
+      <Book persons={persons} setPersons={setPersons} search={search} setSearch={setSearch} newName={name} setNewName={setName}
             newNumber={number} setNewNumber={setNumber}/>
     </div>
   )
