@@ -5,6 +5,21 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
 
   const showAll = search === "" ? persons : persons.filter(element => element.name.match(search));
 
+
+    function deleteContact(id) {
+      const consent = window.confirm(`Are you sure you wish to delete this contact?`);
+      if (consent) {
+        return Data.getDeleted(id)
+                   .then(response =>
+                   {
+                     return setPersons(persons.filter(contact => contact.id !== id));
+                   })
+      } else {
+        return alert("Not deleted.")
+      }
+    }
+
+
     function addContact(event) {
         event.preventDefault();
 
@@ -30,7 +45,7 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
               return Data.update(element.id, object)
             }
           }
-          
+
             return alert("This contact already exists!")
 
 
@@ -80,7 +95,11 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
       <div>
       <h2>Numbers</h2>
       <ul>
-        {showAll.map(contact => <li key={contact.name}>{contact.name}: {contact.number}</li>)}
+        {showAll.map(contact => {
+            return (
+              <li key={contact.name}>{contact.name}: {contact.number} <button onClick={() => deleteContact(contact.id)}>Delete</button></li>
+            )
+        })}
       </ul>
     </div>
     </div>

@@ -27,6 +27,7 @@ function update(id, object) {
 
 export default {
   getall,
+  getDeleted,
   create,
   update
 }
