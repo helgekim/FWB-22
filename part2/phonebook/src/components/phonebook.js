@@ -1,6 +1,6 @@
 import Data from './data';
 
-function Book({persons, setPersons, search, setSearch, newName, newNumber, setNewName, setNewNumber}) {
+function Book({persons, setPersons, search, setSearch, newName, newNumber, setNewName, setNewNumber, setMessage}) {
 
 
   const showAll = search === "" ? persons : persons.filter(element => element.name.match(search));
@@ -13,9 +13,33 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
                    .then(response =>
                    {
                      return setPersons(persons.filter(contact => contact.id !== id));
-                   })
+                   }).catch(
+                     error =>
+                     {
+                       setMessage({
+                         status: `Aborted. Deletion is impossible, the contact has probably been already deleted`,
+                         statusID: 2
+                       })
+                       return setTimeout(
+                         () => setMessage({}), 1000
+                       )
+                     }
+
+                   )
       } else {
-        return alert("Not deleted.")
+        setMessage(
+          {
+            status: `Deletion of the contact is cancelled.`,
+            statusID: 1
+          }
+        )
+        return setTimeout(
+          () => {
+            setMessage(
+              {}
+            )
+          }, 1000
+        )
       }
     }
 
@@ -33,7 +57,7 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
             number: newNumber
           }
 
-          if (element.name == newName) {
+          if (element.name === newName) {
             const consent = window.confirm("Wanna replace the contact")
             if (consent) {
               return Data.update(element.id, object)
@@ -60,12 +84,26 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
           number: newNumber
         };
 
-        return Data.create(
+         Data.create(
           object
         ).then(
           data => setPersons(persons.concat(
             object
           ))
+        )
+
+        setMessage(
+          {
+            status: `Contact entry named ${newName} created`,
+            statusID: 1
+          }
+        )
+
+        return setTimeout(
+          () => {
+            setMessage({
+            })
+          }, 1000
         )
       }
       else {
