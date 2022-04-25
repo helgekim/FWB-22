@@ -60,17 +60,47 @@ function Book({persons, setPersons, search, setSearch, newName, newNumber, setNe
           if (element.name === newName) {
             const consent = window.confirm("Wanna replace the contact")
             if (consent) {
-              return Data.update(element.id, object)
+              Data.update(element.id, object).then(
+                message => {
+                  setMessage(
+                    {
+                      status: `Entry named ${newName} modified`,
+                      statusID: 1
+                    }
+                  )
+                  return setTimeout(
+                    () => setMessage({}), 2000
+                  )
+                }
+              )
 
             }
           } else if (element.number === object.number) {
             const consent = window.confirm("Wanna replace the contact?")
             if (consent) {
-              return Data.update(element.id, object)
+              Data.update(element.id, object).then(
+              message => {setMessage(
+                  {
+                    status: `Entry named ${newName} modified`,
+                    statusID: 1
+                  }
+                )
+                return setTimeout(
+                  () => setMessage({}), 2000
+                )
+              })
             }
           }
 
-            return alert("This contact already exists!")
+            setMessage(
+              {
+                status: `There is already an entry named ${newName}`,
+                statusID: 2
+              }
+            )
+            return setTimeout(
+              () => setMessage({}), 2000
+            )
 
 
         }
