@@ -1,0 +1,15 @@
+{
+  "name": "phonebook-backend",
+  "version": "0.0.1",
+  "description": "a backend application to handle phonebook from part2",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "author": "Helge Kim",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.0",
+    "nodemon": "^2.0.15"
+  }
+}
