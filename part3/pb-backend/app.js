@@ -38,6 +38,16 @@ app.get('/persons', (request, response) => {
   response.json(data);
 })
 
+app.get('/info', (request, response) => {
+  const date = new Date();
+  response.send(
+    `<div>
+      <p> Phonebook has ${data.length} entries </p>
+      <p> ${date} </p>
+    </div>`
+  )
+})
+
 app.get('/persons/:id', (request, response) => {
   const id = Number(request.params.id);
   const object = data.filter(entry => entry.id === id)
