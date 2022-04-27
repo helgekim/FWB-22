@@ -9,7 +9,7 @@ app.use(express.json());
 const PORT = 3001;
 app.listen(PORT);
 
-const data = [
+let data = [
     {
       "id": 1,
       "name": "Arto Hellas",
@@ -58,4 +58,16 @@ app.get('/persons/:id', (request, response) => {
     response.status(404).end();
   }
 
+})
+
+app.delete('/persons/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const newData = data.filter(entry => entry.id !== id);
+
+  if (newData.length != data.length) {
+    data = data.filter(entry => entry.id !== id);
+    response.status(204).end();
+  } else {
+    response.status(404).end();
+  }
 })
