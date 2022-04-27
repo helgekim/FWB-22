@@ -32,6 +32,16 @@ let data = [
     }
 ]
 
+/// functions
+
+function generateId() {
+  const maxId = data.length > 0
+    ? Math.max(...data.map(n => n.id))
+    : 0
+  return maxId + 1
+}
+
+
 /// routes
 
 app.get('/persons', (request, response) => {
@@ -57,6 +67,36 @@ app.get('/persons/:id', (request, response) => {
   } else {
     response.status(404).end();
   }
+
+})
+
+app.post('/persons', (request, response) => {
+  const body = request.body;
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+  }
+
+  const matched = data.filter(entry => entry.name.match(body.name) || entry.number.match(body.number))
+
+  if (matched.length > 0) {
+    return response.status(400).json({
+      error: "cannot have entries with the same name or number"
+    })
+  }
+
+  const object = {
+    id: generateId(),
+    name: body.name,
+    number: body.number,
+    date: new Date()
+  }
+
+  data.push(object);
+
+  return response.status(204).end();
 
 })
 
