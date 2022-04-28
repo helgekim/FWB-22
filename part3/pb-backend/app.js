@@ -3,8 +3,7 @@
 const express = require('express');
 const app = express();
 
-app.use(express.json());
-
+const morgan = require('morgan');
 
 const PORT = 3001;
 app.listen(PORT);
@@ -41,10 +40,18 @@ function generateId() {
   return maxId + 1
 }
 
+morgan.token('body', (req, res) => JSON.stringify(req.body));
+
+/// middlewares
+
+
+app.use(express.json());
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
 
 /// routes
 
 app.get('/persons', (request, response) => {
+  console.log(response);
   response.json(data);
 })
 
