@@ -4,7 +4,8 @@
   "description": "a backend application to handle phonebook from part2",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "Helge Kim",
   "license": "ISC",
