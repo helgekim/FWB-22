@@ -1,0 +1,15 @@
+{
+  "name": "blogs",
+  "version": "0.0.1",
+  "description": "blogs application ",
+  "main": "node app.js",
+  "scripts": {
+    "start": "npm app.js" ,
+    "test": "nodemon app.js"
+  },
+  "author": "Helge Kim",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
