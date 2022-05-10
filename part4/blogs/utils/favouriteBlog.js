@@ -1,17 +1,19 @@
-function favouriteBlog(blogs) {
+  function compareBlogs(a, b, property) {
 
-	function compareBlogs(a, b) {
-
-	 if (a.likes <  b.likes) {
- 		return -1
- 	 } 
-	else if (a.likes >  b.likes) {
- 		return 1
-	 } 
+        if (a[property] <  b[property]) {
+                return -1
+        } 
+	else if (a[property] >  b[property]) {
+                return 1
+         } 
 
 	return 0
 
-	}
+        }
+
+
+
+function favouriteBlog(blogs) {
 
 if (blogs.length == 1) {
 
@@ -25,7 +27,7 @@ if (blogs.length == 1) {
 } 
 
  else {
- const sorted = blogs.sort(compareBlogs)
+ const sorted = blogs.sort((a, b) => compareBlogs(a, b, 'likes'))
  const blog = sorted[sorted.length - 1]
  return {
 	title:  blog.title,
@@ -37,5 +39,5 @@ if (blogs.length == 1) {
 
 } 
 module.exports = {
-favouriteBlog
+favouriteBlog, compareBlogs
 }
