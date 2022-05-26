@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 userRouters.post('/users', async (request, response) => {
 
-  const {username, name, password} = request.body;
+ const {username, name, password} = request.body;
 
  if (password.length < 4) {
 	return response.status(404).json({error: "pass contains less than 4 chars"});
@@ -28,7 +28,13 @@ userRouters.post('/users', async (request, response) => {
   return response.status(201).json(saved);
 })
 
- 
+userRouters.get('/users', (request, response) => {
+
+ User.find({}).populate('blogs').then(users => response.status(203).json(users));
+
+     
+
+}) 
 
 
 module.exports = userRouters;
