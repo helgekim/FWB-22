@@ -12,7 +12,9 @@ routers.get('/blogs', (request, response) => {
 })
 
 routers.post('/blogs', async (request, response) => {
- 	
+
+const user = await User.findById(request.body.user);
+
 	if (!request.body.title) {
 	 return response.status(403).json({'error': 'malformated data: no title'})
 	} else if (!request.body.user ) {
@@ -23,18 +25,15 @@ routers.post('/blogs', async (request, response) => {
 	const blog = new Blog(request.body)
 
   const show = await blog.save()
-
-  const user = await User.findById(request.body.user);
-
-  if (!user.blogs) {
-   user.blogs = [].push(blog._id);
+ 
+  if (user.blogs){
+	user.blogs = user.blogs.concat(show.id)
   } else {
-   user.blogs = user.blogs.concat(blog._id)
-  }
-  
-  await user.save()
+	user.blogs = [show.id]
+  }  
+  await user.save();
 
- response.status(203).json(show)
+ response.json(show)
 
 });
 
