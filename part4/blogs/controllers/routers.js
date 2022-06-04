@@ -1,6 +1,16 @@
 const routers = require('express').Router();
 const Blog = require('../models/post');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization) {
+    return authorization
+  }
+  return null
+}
+
 
 routers.get('/blogs', (request, response) => {
   Blog
@@ -13,14 +23,17 @@ routers.get('/blogs', (request, response) => {
 
 routers.post('/blogs', async (request, response) => {
 
-const user = await User.findById(request.body.user);
+const token = getTokenFrom(request)
+const decodedToken = jwt.verify(token, process.env.SECRET)
+ if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+ }
 
-	if (!request.body.title) {
+const user = await User.findById(decodedToken.id);
+
+if (!request.body.title) {
 	 return response.status(403).json({'error': 'malformated data: no title'})
-	} else if (!request.body.user ) {
-	 return response.status(403).json({'error': 'user not found'})
-	}
-
+} 
 
 	const blog = new Blog(request.body)
 
