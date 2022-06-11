@@ -50,4 +50,27 @@ if (!request.body.title) {
 
 });
 
+routers.delete('/blogs/:id', async (request, response) => {
+
+const token = getTokenFrom(request);
+const decodedToken = jwt.verify(token, process.env.SECRET);
+
+if (!decodedToken) {
+	return  response.status(403).json({'error': 'token is either invalid or does not exist'})
+}
+
+const blogId = request.param.id;
+
+console.log(decodedToken);
+const user = await User.findById(decodedToken.id);
+
+const result = await Blog.deleteMany({
+id: blogId, user: user.id
+})
+
+return response.status(203).json(result)
+
+
+})
+
 module.exports = routers;
