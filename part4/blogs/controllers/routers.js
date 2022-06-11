@@ -61,7 +61,6 @@ if (!decodedToken) {
 
 const blogId = request.param.id;
 
-console.log(decodedToken);
 const user = await User.findById(decodedToken.id);
 
 const result = await Blog.deleteMany({
